@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bybit Official App - Download & Trade</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background: #0c0e12; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .card { background: #181a20; border: 1px solid #2b313a; border-radius: 16px; max-width: 420px; width: 100%; padding: 32px 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .logo { width: 72px; height: 72px; border-radius: 14px; margin-bottom: 16px; }
+        h1 { font-size: 24px; margin-bottom: 8px; font-weight: 700; color: #fff; }
+        p.desc { font-size: 14px; color: #848e9c; margin-bottom: 24px; line-height: 1.5; }
+        .features { text-align: left; background: #20252e; border-radius: 10px; padding: 14px 16px; margin-bottom: 24px; }
+        .features li { list-style: none; font-size: 13px; color: #eaecef; margin-bottom: 8px; display: flex; align-items: center; }
+        .features li:last-child { margin-bottom: 0; }
+        .features li::before { content: "✓"; color: #f0b90b; font-weight: bold; margin-right: 8px; }
+        .btn-download { display: block; width: 100%; background: #f0b90b; color: #000; padding: 16px; border-radius: 10px; font-size: 16px; font-weight: 700; text-decoration: none; cursor: pointer; border: none; transition: 0.2s ease; }
+        .btn-download:hover { background: #e0a708; }
+        .info-tag { font-size: 12px; color: #5e6673; margin-top: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <img src="https://images.placeholders.dev/?width=72&height=72&text=Bybit&bgColor=%23f0b90b&textColor=%23000" alt="Bybit App" class="logo">
+    <h1>Bybit: Buy & Trade Crypto</h1>
+    <p class="desc">Download the official Bybit APK directly to trade Bitcoin, Ethereum, and derivatives with low fees.</p>
+
+    <div class="features">
+        <li>Official APK verified & secure</li>
+        <li>Special invite bonus enabled</li>
+        <li>Fast execution & real-time charts</li>
+    </div>
+
+    <button class="btn-download" id="downloadBtn">Download APK Now</button>
+    <div class="info-tag">Official Android APK • Direct Download</div>
+</div>
+
+<script>
+    // 1. URL پیرامیٹرز سے clickid حاصل کریں
+    const urlParams = new URLSearchParams(window.location.search);
+    const clickId = urlParams.get('clickid');
+
+    // 2. آپ کے لنکس
+    const BYBIT_APK_URL = "https://affiliates.bybit.com/api/v2/apk_download?invite_code=18544";
+
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    downloadBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        downloadBtn.innerText = "Downloading...";
+        downloadBtn.style.opacity = "0.7";
+
+        // اگر clickid موجود ہے تو Mondiad کا پوسٹ بیک ٹریگر کریں
+        if (clickId) {
+            // آپ کا دیا ہوا UID = 1055
+            const postbackUrl = `https://postback.pbmnd.com/track?uid=1055&clickid=${encodeURIComponent(clickId)}`;
+            
+            // بیک گراؤنڈ میں پوسٹ بیک بھیجیں
+            const tracker = new Image();
+            tracker.src = postbackUrl;
+        }
+
+        // صارف کو 300ms میں سیدھا Bybit APK لنک پر ری ڈائریکٹ کریں
+        setTimeout(() => {
+            window.location.href = BYBIT_APK_URL;
+        }, 300);
+    });
+</script>
+
+</body>
+</html>
